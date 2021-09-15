@@ -12,6 +12,22 @@ async function getCourses(pageNumber) {
     .limit(pageSize)
     courseList = loadCourseList
 }
+async function updateCorse(id, name) {
+    const course = await CourseModel.findByIdAndUpdate
+    (id, {
+        $set : {
+            name: name
+        }
+    }, { new: true })
+    return course
+}
+
+// updateCorseName('61407c547d60f98ad794c37b', 'twitter');
+
+async function deleteCourse(id) {
+    return await CourseModel.findByIdAndDelete(id)
+}
+// deleteCourse('61407c547d60f98ad794c37b');
 
 Router.get('/api/corse/', async (req,res)=>{
     try{
@@ -54,28 +70,23 @@ Router.post('/api/corse', (req, res)=>{
     }).catch(err=>console.log(err))
 })
 
-Router.put('/api/corse/:customerId', (req,res)=> {
+Router.put('/api/corse/:customerId', async (req,res)=> {
     //input validation
     const schema = Joi.object({
         name: Joi.string().min(2).max(10).required(),
-        customerId: Joi.number().required()
+        customerId: Joi.required()
     })
     const {error} = schema.validate({...req.body, customerId: req.params.customerId});
     if (error) {
         return res.status(400).send({message: error.message})
     }
-    const index = customers.findIndex(item => item.id == req.params.customerId);
-    if (index === -1) return res.status(404).send({message: "مشتری مورد نظر یافت نشد"})
-
-    customers[index].name =  req.body.name;
-    res.send(customers[index]);
+    const result = await updateCorse(req.params.customerId, req.body.name);
+    result ? res.send(result) : res.send('user not found!');
 })
 
-Router.delete('/api/corse/:customerId', (req,res)=>{
-    const index = customers.findIndex(item => item.id == req.params.customerId);
-    if (index === -1) return res.status(404).send({message: "مشتری مورد نظر یافت نشد"})
-    customers = [...customers.slice(0, index), ...customers.slice(index + 1)];
-    res.status(200).send();
+Router.delete('/api/corse/:id', async (req,res)=>{
+    const toDelete = await deleteCourse(req.params.id)
+    toDelete ? res.status(200).send({delete: true}) : res.status(200).send({delete: false, message: 'user not found!'})
 })
 
 module.exports = Router;
