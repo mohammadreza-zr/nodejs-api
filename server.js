@@ -8,6 +8,7 @@ const customRoutes = require('./routes/customRoute');
 const homeRoutes = require('./routes/HomeRoute');
 const logger = require('./middleware/logger');
 const saeedForbiddenAuth = require('./middleware/saeedForbiddenAuth');
+const mongoose = require('mongoose');
 const app = express();
 
 
@@ -39,11 +40,20 @@ debugConfiguration('some configuration');
 debugDB('db initialized');
 
 //configuration
-console.log(config.get('databaseAddress'));
+// console.log(config.get('databaseAddress'));
 
 //view engin
 app.set('view engine', 'pug');
 app.set("views","./views");
+
+//database connect
+mongoose.connect('mongodb://localhost:27017/CustomerDb')
+.then(()=>{
+    console.log('db connected')
+})
+.catch(err=>{
+    console.log('db not connected', err)
+})
 
 const port = process.env.myPort || 3000;
 app.listen(port,(err)=>{
