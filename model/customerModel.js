@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
+var moment = require('jalali-moment');
+
 const schemaCustomer = new mongoose.Schema({
     name: {type: String, required: true},
-    tags: [String],
-    teacher: String,
-    publishDate: {type: Date, default: Date.now},
+    tags: {type: String},
+    number: Number,
+    publishDate: {type: String, default: moment().locale('fa').format('YYYY/M/D')},
     completed: {type: Boolean, default: false},
-    price: Number
+    wallet: Number
 })
 const CustomerModel = mongoose.model('customer', schemaCustomer);
 module.exports = CustomerModel

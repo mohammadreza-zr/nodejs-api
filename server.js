@@ -11,8 +11,6 @@ const saeedForbiddenAuth = require('./middleware/saeedForbiddenAuth');
 const mongoose = require('mongoose');
 const app = express();
 
-
-
 // built-in middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
@@ -55,7 +53,7 @@ mongoose.connect('mongodb://localhost:27017/CustomerDb')
     console.log('db not connected', err)
 })
 
-const port = process.env.myPort || 3000;
+const port = process.argv.slice(2).toString() || 3000;
 app.listen(port,(err)=>{
     if(err) console.log(err);
     else console.log(`app listen to port ${port}`);

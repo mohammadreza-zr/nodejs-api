@@ -13,14 +13,14 @@ async function getCustomers(pageNumber) {
     return loadCustomerList
 }
 async function updateCustomer(id, body) {
-    const {name, tags, teacher, price} = body;
+    const {name, tags, number, wallet} = body;
     const customer = await customerModel.findByIdAndUpdate
     (id, {
         $set : {
             name: name,
             tags: tags,
-            teacher: teacher,
-            price: price
+            number: number,
+            wallet: wallet
         }
     }, { new: true })
     return customer
@@ -48,12 +48,13 @@ Router.get('/api/Customer/:id',async (req,res)=>{
 Router.post('/api/Customer', async (req, res)=>{
     const {error} = validateCustomerCreate(req.body)
     if (error) return res.status(400).send({message: error.message})
+    // const tags = req.body.tags.toString().split(' ');
     let newCustomer = new customerModel({
         name: req.body.name,
         tags: req.body.tags,
-        teacher: req.body.teacher,
+        number: req.body.number,
         completed: req.body.completed,
-        price: req.body.price
+        wallet: req.body.wallet
     })
     await newCustomer.save().then(async ()=>{
         let pageNumber = req.query['page'] ? req.query['page'] : 1;
@@ -72,7 +73,8 @@ Router.put('/api/Customer/:customerId', async (req,res)=> {
 
 Router.delete('/api/Customer/:id', async (req,res)=>{
     const toDelete = await customerModel.findByIdAndDelete(req.params.id)
-    toDelete ? res.status(200).send({delete: true}) : res.status(200).send({delete: false, message: 'user not found!'})
+    const CustomerListCount = await customerModel.find().count()
+    toDelete ? res.status(200).send({delete: true, CustomerListCount}) : res.status(200).send({delete: false, message: 'user not found!'})
 })
 
 module.exports = Router;
