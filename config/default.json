@@ -1,3 +1,7 @@
 {
-    "databaseAddress": "address"
+    "databaseAddress": "address",
+    "jwtPrivetKey": "NodeCoursePrivetKey",
+    "usernameSMS": "09145750525",
+    "passwordSMS": "6460",
+    "SMSNumber":"30008666575052"
 }

@@ -3,6 +3,8 @@ const Router= express.Router();
 const customerModel = require('../model/customerModel');
 const { validateCustomerCreate, validateCustomerUpdate } = require('../validators/customerValidator');
 const mongoose = require('mongoose');
+const Auth = require('../middleware/auth')
+const Admin = require('../middleware/admin')
 
 async function getCustomers(pageNumber) {
     const pageSize = 10;
@@ -26,7 +28,7 @@ async function updateCustomer(id, body) {
     return customer
 }
 
-Router.get('/api/customer/', async (req,res)=>{
+Router.get('/api/customer/', [Auth, Admin], async (req,res)=>{
     try{
         let pageNumber = req.query['page'] ? req.query['page'] : 1;
         let customerList = await getCustomers(pageNumber);
@@ -48,7 +50,6 @@ Router.get('/api/Customer/:id',async (req,res)=>{
 Router.post('/api/Customer', async (req, res)=>{
     const {error} = validateCustomerCreate(req.body)
     if (error) return res.status(400).send({message: error.message})
-    // const tags = req.body.tags.toString().split(' ');
     let newCustomer = new customerModel({
         name: req.body.name,
         tags: req.body.tags,

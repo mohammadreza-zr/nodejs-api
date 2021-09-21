@@ -6,6 +6,7 @@ const debugConfiguration = require('debug')('app:configuration');
 const debugDB = require('debug')('app:Db');
 const customRoutes = require('./routes/customRoute');
 const homeRoutes = require('./routes/HomeRoute');
+const userRoutes = require('./routes/userRoute');
 const logger = require('./middleware/logger');
 const saeedForbiddenAuth = require('./middleware/saeedForbiddenAuth');
 const mongoose = require('mongoose');
@@ -27,6 +28,7 @@ app.use(saeedForbiddenAuth);
 //routes
 app.use(homeRoutes);
 app.use(customRoutes);
+app.use(userRoutes);
 
 if (app.get("env")==="development") {
     app.use(morgan('tiny'))

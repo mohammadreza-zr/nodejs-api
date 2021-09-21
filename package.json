@@ -10,6 +10,7 @@
   "author": "mohammad",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "debug": "^4.3.2",
@@ -17,8 +18,12 @@
     "jalali-moment": "^3.3.10",
     "joi": "^17.4.2",
     "joi-objectid": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "melipayamak": "^1.0.5",
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
+    "node-cache": "^5.1.2",
     "pug": "^3.0.2"
   },
   "devDependencies": {
