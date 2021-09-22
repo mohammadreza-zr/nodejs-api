@@ -1,7 +1,8 @@
 {
-    "databaseAddress": "address",
-    "jwtPrivetKey": "NodeCoursePrivetKey",
-    "usernameSMS": "09145750525",
-    "passwordSMS": "6460",
-    "SMSNumber":"30008666575052"
+  "databaseAddress": "address",
+  "jwtPrivetKey": "NodeCoursePrivetKey",
+  "usernameSMS": "09145750525",
+  "passwordSMS": "6460",
+  "SMSNumber": "30008666575052",
+  "front-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmVhY3QiLCJkYXRlIjoiMTQwMC8wNi8zMCIsImlhdCI6MTYzMjIxNzY2OX0.Fio4N6WCdMkjLHxE-Gw5eksjlZa0WH3MEltzZXmANZk"
 }
