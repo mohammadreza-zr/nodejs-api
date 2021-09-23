@@ -38,7 +38,7 @@ Router.post('/api/users/register', async (req, res) => {
     .save()
     .then(async () => {
       res.send({
-        user: _.pick(user, ['name', 'email']),
+        user: _.pick(user, ['name', 'email', 'role']),
         'x-auth-token': token,
         message: 'user created...',
         status: 'success',
@@ -71,7 +71,7 @@ Router.post('/api/users/login', async (req, res) => {
     status: 'success',
     'x-auth-token': token,
     message: 'logged in...',
-    user: _.pick(user, ['name', 'email']),
+    user: _.pick(user, ['name', 'email', 'role']),
   });
 });
 
