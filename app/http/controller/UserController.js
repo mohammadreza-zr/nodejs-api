@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const MelipayamakApi = require('melipayamak');
 const NodeCache = require('node-cache');
-const myCache = new NodeCache({ stdTTL: 2 * 60, checkperiod: 60 });
+const myCache = new NodeCache({ stdTTL: 10 * 60, checkperiod: 60 });
 
 module.exports = new (class UserController {
   async register(req, res) {
@@ -24,6 +24,7 @@ module.exports = new (class UserController {
     user = new UserModel({
       name: req.body.name,
       email: req.body.email,
+      number: req.body.number,
       password: await bcrypt.hash(req.body.password, salt),
     });
     const data = {
@@ -75,6 +76,11 @@ module.exports = new (class UserController {
     const user = await UserModel.findById(id);
     if (!user)
       return res.status(404).send({ message: 'user not fond !!!!', status: 'failed' });
+    if (!user.number)
+      return res.status(404).send({
+        message: 'please first add your phone number to your profile and try again !!!!',
+        status: 'failed',
+      });
     const code = Math.floor(Math.random() * 100000);
     myCache.set(id, code);
     const username = config.get('usernameSMS');
