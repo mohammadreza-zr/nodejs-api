@@ -1,0 +1,9 @@
+{"level":"error","message":"Cannot read properties of undefined (reading 'code')"}
+{"level":"error","message":"use is not defined"}
+{"level":"error","message":"Operation `users.findOne()` buffering timed out after 10000ms"}
+{"address":"::","code":"EADDRINUSE","errno":-98,"level":"error","port":3000,"syscall":"listen"}
+{"address":"::","code":"EADDRINUSE","errno":-98,"level":"error","port":3000,"syscall":"listen"}
+{"address":"::","code":"EADDRINUSE","errno":-98,"level":"error","port":3000,"syscall":"listen"}
+{"address":"::","code":"EADDRINUSE","errno":-98,"level":"error","port":3000,"syscall":"listen"}
+{"address":"::","code":"EADDRINUSE","errno":-98,"level":"error","port":3000,"syscall":"listen"}
+{"address":"::","code":"EADDRINUSE","errno":-98,"level":"error","port":3000,"syscall":"listen"}
